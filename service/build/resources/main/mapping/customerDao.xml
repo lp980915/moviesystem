@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springboot.dao.CustomerDao">
+    <insert id="collectMovie">
+        insert into collect values (NOW(),#{userid},#{movieid})
+    </insert>
+    <insert id="addComment">
+        insert into comment values (null,#{comment},#{movieid},#{userid},0,NOW(),#{score})
+    </insert>
+    <insert id="addMessage">
+        insert into message values (#{myuserid},#{otheruserid},NOW(),#{message})
+    </insert>
+    <insert id="addLikely">
+        insert into friend values (#{userid},#{likelyUserid})
+    </insert>
+    <insert id="addTopicMessageReply">
+        insert into topicmessagereply values (#{topicid},#{topicmessageid},#{userid},#{touserid},NOW(),#{replycontent})
+    </insert>
+    <insert id="addTopic">
+        insert into topic values (null,#{movieid},#{userid},#{title},#{describe},NOW())
+    </insert>
+    <insert id="addTopicMessage">
+        insert into topicmessage values (null,#{topicid},#{userid},NOW(),#{content})
+    </insert>
+    <update id="addOneStar">
+        UPDATE movie set scoreperson = scoreperson+1,onestar=onestar+1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10)/scoreperson where movieid=#{movieid}
+    </update>
+    <update id="addTwoStar">
+        UPDATE movie set scoreperson = scoreperson+1,twostar=twostar+1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10)/scoreperson where movieid=#{movieid}
+    </update>
+    <update id="addThreeStar">
+        UPDATE movie set scoreperson = scoreperson+1,threestar=threestar+1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10)/scoreperson where movieid=#{movieid}
+    </update>
+    <update id="addFourStar">
+        UPDATE movie set scoreperson = scoreperson+1,fourstar=fourstar+1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10)/scoreperson where movieid=#{movieid}
+    </update>
+    <update id="addFiveStar">
+        UPDATE movie SET scoreperson = scoreperson+1,fivestar=fivestar+1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10 )/scoreperson WHERE movieid=#{movieid}
+    </update>
+    <update id="addCommentLike">
+        update comment set likevalue=likevalue+1 where commentid=#{commentid}
+    </update>
+    <update id="addMovieLike">
+        update movie set movielike=movielike+1 where movieid=#{movieid}
+    </update>
+    <update id="findPassword">
+        update user set password=#{password} where email=#{email}
+    </update>
+    <update id="uploadUserImg">
+        update user set userimg=#{userimg} where userid=#{userid}
+    </update>
+    <update id="removeMovieLike">
+        update movie set movielike=movielike-1 where movieid=#{movieid}
+    </update>
+    <update id="removeFiveStar">
+        update movie set  scoreperson = scoreperson-1,fivestar=fivestar-1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10 )/scoreperson WHERE movieid=#{movieid}
+    </update>
+    <update id="removeFourStar">
+        update movie set  scoreperson = scoreperson-1,fourstar=fourstar-1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10 )/scoreperson WHERE movieid=#{movieid}
+    </update>
+    <update id="removeThreeStar">
+        update movie set  scoreperson = scoreperson-1,threestar=threestar-1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10 )/scoreperson WHERE movieid=#{movieid}
+    </update>
+    <update id="removeTwoStar">
+        update movie set  scoreperson = scoreperson-1,twostar=twostar-1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10 )/scoreperson WHERE movieid=#{movieid}
+    </update>
+    <update id="removeOneStar">
+        update movie set  scoreperson = scoreperson-1,onestar=onestar-1,moviescore=(onestar*2+twostar*4+threestar*6+fourstar*8+fivestar*10 )/scoreperson WHERE movieid=#{movieid}
+    </update>
+    <delete id="removeCollect">
+        delete from collect where movieid=#{movieid} and userid=#{userid}
+    </delete>
+    <delete id="removeLikely">
+        delete from friend where userid=#{userid} and userid1=#{likelyUserid}
+    </delete>
+    <delete id="deleteTopic">
+        delete from topic where topicid=#{topicid}
+    </delete>
+    <delete id="deleteReply">
+        delete from topicmessagereply where topicmessagereplydate=#{topicmessagereplydate}
+    </delete>
+    <delete id="deleteTopicMessage">
+        delete from topicmessage where topicmessageid=#{topicmessageid}
+    </delete>
+    <delete id="deleteMessage">
+        delete from message where myuserid=#{myuserid} and otheruserid=#{otheruserid} and messagedate=#{messagedate}
+    </delete>
+    <select id="getFans" resultType="java.lang.String">
+        select u.username from user u,friend f where u.userid=f.userid and f.userid1=#{userid}
+    </select>
+    <select id="getLikely" resultType="java.lang.String">
+        select u.username from user u,friend f where u.userid=f.userid1 and f.userid=#{userid}
+    </select>
+    <select id="getMovieById" resultType="springboot.bean.Movie">
+        select * from movie where movieid=#{movieid}
+    </select>
+    <select id="getCommentListByMovieId" resultType="springboot.bean.Comment">
+        select * from comment c,user u where u.userid=c.userid and c.movieid=#{movieid}
+    </select>
+    <select id="getMoviesortByMovieId" resultType="java.lang.String">
+        select sort.moviesort from sort,moviesort where moviesort.moviesort=sort.moviesort and moviesort.movieid=#{movieid}
+    </select>
+    <select id="getActorListByMovieId" resultType="springboot.bean.Actor">
+        select actor.* from actor,movieactor where actor.actorid=movieactor.actorid and movieactor.movieid=#{movieid}
+    </select>
+    <select id="existCollect" resultType="java.lang.Integer">
+        select count(*) from collect where userid=#{userid} and movieid=#{movieid}
+    </select>
+    <select id="getTopComment" resultType="springboot.bean.Comment">
+        select c.*,m.movieid,m.moviename,m.movieimg,u.userid,u.username,u.userimg from comment c,user u,movie m where c.userid=u.userid and
+        c.movieid=m.movieid order by c.likevalue desc limit 0,6
+    </select>
+    <select id="searchMovie" resultType="springboot.bean.MovieSort">
+        select * from movie where moviename like CONCAT("%",#{moviename},"%")
+    </select>
+    <select id="searchActor" resultType="springboot.bean.Actor">
+        select * from actor where actorname like CONCAT("%",#{actorname},"%")
+    </select>
+    <select id="getActorById" resultType="springboot.bean.Actor">
+        select * from actor where actorid=#{actorid}
+    </select>
+    <select id="getMovieListByActorId" resultType="springboot.bean.Movie">
+        select m.* from movie m,movieactor mc where m.movieid=mc.movieid and mc.actorid=#{actorid}
+    </select>
+    <!-- DISTINCT去重 -->
+    <select id="getMovieCountryByMovieId" resultType="java.lang.String">
+        select DISTINCT moviecountry from moviesort where movieid=#{movieid}
+    </select>
+    <select id="selectPageComment" resultType="springboot.bean.Comment">
+        select * from comment c,user u where u.userid=c.userid and c.movieid=#{movieid}
+    </select>
+    <select id="getTopHotMovie" resultType="springboot.bean.MovieSort">
+        select * from movie order by movielike desc
+    </select>
+    <select id="getTopScoreMovie" resultType="springboot.bean.MovieSort">
+        select * from movie order by moviescore  desc
+    </select>
+    <select id="getTopDateMovie" resultType="springboot.bean.MovieSort">
+        select * from movie order by date desc
+    </select>
+    <select id="getCollectMovieListById" resultType="springboot.bean.CollectMovie">
+        select m.*,c.collectdate from movie m,collect c where m.movieid=c.movieid and c.userid=#{userid}
+    </select>
+    <select id="getCommentListByUserId" resultType="springboot.bean.Comment">
+        select * from comment c,movie m,user u where c.movieid=m.movieid and c.userid=u.userid and c.userid=#{userid}
+    </select>
+    <select id="getFansInfo" resultType="springboot.bean.User">
+        select u.* from user u,friend f where u.userid=f.userid and f.userid1=#{userid}
+    </select>
+    <select id="getLikelyInfo" resultType="springboot.bean.User">
+        select u.* from user u,friend f where u.userid=f.userid1 and f.userid=#{userid}
+    </select>
+    <select id="getMessageListById" resultType="springboot.bean.Message">
+        select m.*,u.username,u.userimg from message m,user u where m.myuserid=u.userid and otheruserid=#{userid}
+    </select>
+    <select id="selectPageTopic" resultType="springboot.bean.Topic">
+        select t.*,m.moviename,m.movieimg,u.username,u.userimg from topic t,movie m,user u where t.movieid=m.movieid and t.userid=u.userid
+    </select>
+    <select id="getTopMessageListByTopicId" resultType="springboot.bean.TopicMessage">
+        select t.*,u.username,u.userimg from topicmessage t,user u where t.userid=u.userid and t.topicid=#{topicid}
+    </select>
+    <select id="getTopicMessageReplyListByTopicId" resultType="springboot.bean.TopicMessageReply">
+       select t.*,u.username,u.userimg from topicmessagereply t,user u where t.userid=u.userid and t.topicid=#{topicid}
+    </select>
+    <select id="getToUserNameByToUserId" resultType="java.lang.String">
+        select username from user where userid=#{userid}
+    </select>
+    <select id="getTopicListByMovieId" resultType="springboot.bean.Topic">
+        select c.*,m.moviename,m.movieimg,u.username,u.userimg from topic c,movie m,user u where c.movieid=m.movieid and c.userid=u.userid and c.movieid=#{movieid}
+    </select>
+    <select id="getTopicListByUserId" resultType="springboot.bean.Topic">
+        select DISTINCT c.*,m.moviename,m.movieimg,u.username,u.userimg from topic c,movie m,user u
+        where c.movieid=m.movieid and c.userid=u.userid  and c.userid=#{userid}
+        union  select DISTINCT c.*,m.moviename,m.movieimg,u.username,u.userimg from topic c,movie m,user u,topicmessage tm
+        where c.movieid=m.movieid and c.userid=u.userid and c.topicid=tm.topicid  and tm.userid=#{userid}
+        union  select DISTINCT c.*,m.moviename,m.movieimg,u.username,u.userimg from topic c,movie m,user u,topicmessagereply tmr
+        where c.movieid=m.movieid and c.userid=u.userid and c.topicid=tmr.topicid and tmr.userid=#{userid}
+
+    </select>
+
+</mapper>

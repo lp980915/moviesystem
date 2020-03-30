@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springboot.dao.MovieDao">
+    <insert id="addMovie" parameterType="springboot.bean.Movie" useGeneratedKeys="true">
+        <!-- selectKey将主键返回，需要再返回 -->
+        <selectKey keyProperty="movieid" order="AFTER" resultType="java.lang.String">
+            select LAST_INSERT_ID()
+        </selectKey>
+    insert into movie values (null,#{movieimg},#{moviename},#{movieintro},0,0,0,0,0,0,0,0,#{date})
+    </insert>
+    <insert id="addMovieSort">
+      insert into moviesort values (#{movie.movieid},#{sort},#{country})
+    </insert>
+    <update id="updateById">
+        update movie set movieimg=#{movieimg},moviename=#{moviename},movieintro=#{movieintro},movielike=#{movielike},date=#{date} where movieid=#{movieid}
+    </update>
+    <update id="updateSort">
+        update sort set moviesort=#{moviesort} where moviesort=#{oldMovieSort}
+    </update>
+    <update id="updateMovieById">
+        update movie set moviename=#{moviename},movieintro=#{movieintro},movielike=#{movielike},date=#{date} where movieid=#{movieid}
+    </update>
+    <insert id="addMovieSortById" parameterType="java.util.List" >
+        insert into moviesort values
+         <foreach collection="list" item="sort" index="index" separator=",">
+           (#{movieid},#{sort},#{moviecountry})
+         </foreach>
+    </insert>
+    <insert id="addSort">
+        insert into sort values (#{moviesort})
+    </insert>
+    <insert id="addMovieActor">
+        insert into movieactor values (#{actorid},#{movieid})
+    </insert>
+    <delete id="deleteById">
+        delete from movie where movieid=#{movieid}
+    </delete>
+    <delete id="deleteMovieSortById">
+        delete from moviesort where movieid=#{movieid}
+    </delete>
+    <delete id="deleteSortDependency">
+        delete from moviesort where moviesort=#{moviesort}
+    </delete>
+    <delete id="deleteSort">
+        delete from sort where moviesort=#{moviesort}
+    </delete>
+    <delete id="deleteComment">
+        delete from comment where commentid=#{commentid}
+    </delete>
+    <delete id="deleteMovieActor">
+        delete from movieactor where movieid=#{movieid}
+    </delete>
+
+    <select id="selectPage" resultType="springboot.bean.MovieSort">
+        select * from movie
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+    <select id="getSortList" resultType="java.lang.String">
+        select * from sort
+    </select>
+    <select id="getSortByMovieid" resultType="java.lang.String">
+        select moviesort from moviesort where movieid=#{movieid}
+    </select>
+    <select id="getCountryByMovieid" resultType="java.lang.String">
+        select DISTINCT moviecountry from moviesort where movieid=#{movieid}
+    </select>
+    <select id="getTopMovie" resultType="springboot.bean.Report">
+        select * from movie order by movielike desc limit 0,6
+    </select>
+    <select id="getCollectNumByMovieid" resultType="java.lang.String">
+        select count(*) from collect where movieid=#{movieid}
+    </select>
+    <select id="getCommentNumByMovieid" resultType="java.lang.String">
+        select count(*) from comment where movieid=#{movieid}
+    </select>
+    <select id="getSortListToMovie" resultType="springboot.bean.SortAndMovie">
+        select * from sort
+    </select>
+    <select id="getMovieNumBySort" resultType="java.lang.String">
+        select count(*) from moviesort where moviesort=#{moviesort}
+    </select>
+    <select id="getMovieListBySort" resultType="java.lang.String">
+        select m.moviename from movie m,moviesort s where s.moviesort=#{moviesort} and m.movieid=s.movieid
+    </select>
+    <select id="getMovienameById" resultType="java.lang.String">
+        select movie.moviename from movie where movieid=#{movieid}
+    </select>
+    <select id="getMoviescoreByMovieid" resultType="java.lang.String">
+        select moviescore from movie where movieid=#{movieid}
+    </select>
+    <select id="getCountryList" resultType="java.lang.String">
+        select * from moviecountry
+    </select>
+    <select id="getMovieList" resultType="springboot.bean.Movie">
+        select DISTINCT m.* from movie m,moviesort ms where m.movieid=ms.movieid
+    <if test="moviesort!='全部类型'">
+     and ms.moviesort=#{moviesort}
+    </if>
+     <if test="moviecountry!='全部地区'">
+     and ms.moviecountry=#{moviecountry}
+     </if>
+    </select>
+    <select id="getMovieActorByMovieid" resultType="java.lang.String">
+        select a.actorname from movieactor m,actor a where m.actorid=a.actorid and m.movieid=#{movieid}
+    </select>
+
+</mapper>

@@ -1,0 +1,4 @@
+rootProject.name = 'movieSystem'
+include 'service'
+include 'vue'
+include 'uservue'

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springboot.dao.UserDao">
+    <insert id="insert">
+      insert into user values(null,0,#{ew.username},#{ew.password},#{ew.realname},#{ew.number},#{ew.email},#{ew.userimg},null)
+    </insert>
+
+    <update id="updateUser">
+        update user set rowid=#{rowid},username=#{username},password=#{password},realname=#{realname},number=#{number},email=#{email}
+        <if test="autograph!=null">,autograph=#{autograph}</if>
+where userid=#{userid}
+    </update>
+    <delete id="deleteById">
+        delete from user where userid=#{userid}
+    </delete>
+
+
+    <select id="getList" resultType="springboot.bean.User">
+        select * from user
+    </select>
+    <!-- ew.sqlSegment表示之前like条件构造器写的部分sql语句,ew表示Constants.WRAPPER对象-->
+  <select id="selectPage" resultType="springboot.bean.User">
+        select * from user
+<where>
+        ${ew.sqlSegment}
+</where>
+    </select>
+ <select id="getLoginUser" resultType="springboot.bean.User">
+     select * from user where username=#{username} and password=#{password}
+ </select>
+    <select id="getUser" resultType="springboot.bean.User">
+        select * from user where userid=#{userid}
+    </select>
+    <select id="existUsername" resultType="java.lang.Integer">
+        select count(*) from user where username=#{username}
+    </select>
+    <select id="getUsernameById" resultType="java.lang.String">
+        select username from user where userid=#{userid}
+    </select>
+</mapper>
