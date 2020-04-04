@@ -55,8 +55,8 @@
                 },500);
             },
             getAllMovieAndCountryAndSort:function () {
-                this.axios.get('/customer/getAllMovieAndCountryAndSort?moviesort='+this.selectedSort+'&moviecountry='+this.selectedCountry,
-                    {headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/getAllMovieAndCountryAndSort?moviesort='+this.selectedSort+'&moviecountry='+this.selectedCountry
+                    )
                     .then(res=>{
                         this.sortList=res.data.data.sortList;
                         this.countryList=res.data.data.countryList;

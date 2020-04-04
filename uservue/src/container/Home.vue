@@ -209,7 +209,7 @@
                 this.$Message.warning('上传失败');
             },
             getFriend:function () {
-                this.$axios.get('/customer/getFriend?userid='+JSON.parse(localStorage.getItem('loginUser')).userid,{headers:{'token':localStorage.getItem('token')}})
+                this.$axios.get('/customer/getFriend?userid='+JSON.parse(localStorage.getItem('loginUser')).userid)
                     .then(res=>{
                         console.log(res)
                         this.friendData=res.data.data;

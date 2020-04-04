@@ -66,8 +66,7 @@
                 this.getMovieOrder();
             },
             getMovieOrder:function () {
-                this.axios.get('/customer/getMovieOrder?order='+this.border+'&current='+this.pageForm.current+'&size='+this.pageForm.size,
-                    {headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/getMovieOrder?order='+this.border+'&current='+this.pageForm.current+'&size='+this.pageForm.size)
                     .then(res=>{
                         console.log(res)
                         this.pageForm.total=res.data.data.total

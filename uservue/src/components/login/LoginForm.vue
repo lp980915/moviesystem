@@ -173,8 +173,9 @@
                                 if(res.data.data.token!=null&&res.data.data.token!==''){
                                     localStorage.setItem('token',res.data.data.token);
                                     localStorage.setItem('loginUser',JSON.stringify(res.data.data.user));
+                                    this.axios.defaults.headers.common['token']=res.data.data.token;
                                     this.$router.push('/welcome');
-                                    this.$Message.success('登录成功!')
+                                    this.$Message.success('登录成功!');
                                 }else {
                                     this.$Message.error(res.data.data)
                                 }

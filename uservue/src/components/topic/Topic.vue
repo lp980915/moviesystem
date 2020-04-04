@@ -63,7 +63,7 @@
         },
         methods:{
             getTopicList:function () {
-                this.axios.get('/customer/getTopicList?size='+this.pageForm.size+'&current='+this.pageForm.current,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/getTopicList?size='+this.pageForm.size+'&current='+this.pageForm.current)
                     .then(res=>{
                         console.log(res);
                         this.topicList=res.data.data.records;
