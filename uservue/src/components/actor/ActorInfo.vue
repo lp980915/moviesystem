@@ -50,7 +50,7 @@
         },
         methods:{
             getActorInfo(){
-                this.axios.get('/customer/getActorInfo?actorid='+this.$route.query.actorid,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/getActorInfo?actorid='+this.$route.query.actorid)
                     .then(res=>{
                         console.log(res)
                         this.actor=res.data.data.actor;

@@ -276,7 +276,7 @@
         },
         methods:{
             deleteMessage:function(myuserid,otheruserid,messagedate){
-                this.axios.get('/customer/deleteMessage?myuserid='+myuserid+'&otheruserid='+otheruserid+'&messagedate='+messagedate,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/deleteMessage?myuserid='+myuserid+'&otheruserid='+otheruserid+'&messagedate='+messagedate)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('删除成功!');
@@ -290,7 +290,7 @@
             },
             deleteComment:function(commentid,score,movieid){
                 console.log(commentid,score,movieid);
-           this.axios.get('movie/deleteComment?commentid='+commentid+'&score='+score+'&movieid='+movieid,{headers:{'token':localStorage.getItem('token')}})
+           this.axios.get('movie/deleteComment?commentid='+commentid+'&score='+score+'&movieid='+movieid)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('删除成功!');
@@ -347,7 +347,7 @@
                     userid=JSON.parse(localStorage.getItem('loginUser')).userid
                     this.existDeleteComment=true;
                 }
-                this.axios.get('/customer/getUserInfo?userid='+userid,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/getUserInfo?userid='+userid)
                     .then(res=>{
                         console.log(res);
                         this.user=res.data.data.user;
@@ -370,7 +370,7 @@
             },
             addLikeValue:function (id) {
                 let commentid=this.$qs.stringify({commentid:id})
-                this.$axios.post('/customer/addCommentLike',commentid,{headers:{'token':localStorage.getItem('token')}})
+                this.$axios.post('/customer/addCommentLike',commentid)
                     .then(res=>{
                         if(res.data.data){
                             this.getUserInfo();
@@ -419,7 +419,7 @@
                     myuserid:JSON.parse(localStorage.getItem('loginUser')).userid,
                     otheruserid:this.user.userid
                 });
-                this.axios.post('/customer/addMessage',message,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.post('/customer/addMessage',message)
                     .then(res=>{
                         console.log(res);
                         this.$Message.success('成功留言!');
@@ -443,7 +443,7 @@
             },
             addLikely:function () {
                 this.axios.get('customer/addLikely?userid='+JSON.parse(localStorage.getItem('loginUser')).userid+'&likelyUserid='+this.user.userid
-                ,{headers:{'token':localStorage.getItem('token')}})
+                )
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('关注成功!');
@@ -457,7 +457,7 @@
             },
             removeLikely:function () {
                 this.axios.get('customer/removeLikely?userid='+JSON.parse(localStorage.getItem('loginUser')).userid+'&likelyUserid='+this.user.userid
-                    ,{headers:{'token':localStorage.getItem('token')}})
+                    )
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('成功取消关注!');

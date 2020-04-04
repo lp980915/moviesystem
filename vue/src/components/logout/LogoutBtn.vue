@@ -13,7 +13,7 @@
             ...mapMutations(['delToken']),
             logout:function () {
                 this.delToken({token:''});
-                sessionStorage.removeItem('index')
+                sessionStorage.removeItem('index');
                 //localStorage.removeItem('token');
                 this.$router.push('/login');
                 this.$notify.success('成功注销');

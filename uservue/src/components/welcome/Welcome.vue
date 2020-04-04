@@ -167,7 +167,7 @@
             },
             addLikeValue:function (id) {
                 let commentid=this.$qs.stringify({commentid:id})
-                this.$axios.post('/customer/addCommentLike',commentid,{headers:{'token':localStorage.getItem('token')}})
+                this.$axios.post('/customer/addCommentLike',commentid)
                     .then(res=>{
                         if(res.data.data){
                             this.getTopComment();
@@ -191,7 +191,7 @@
                     });
             },
             getTopComment:function () {
-                this.axios.get('/customer/getTopComment',{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/getTopComment')
                     .then(res=>{
                         console.log(res)
                         this.topCommentList=res.data.data;

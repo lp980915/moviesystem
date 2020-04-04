@@ -222,7 +222,7 @@
                     title:this.title,
                     describe:this.describe
                 })
-                this.axios.post('/customer/addTopic',topic,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.post('/customer/addTopic',topic)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('成功发起话题!');
@@ -244,7 +244,7 @@
                     comment:this.commentForm.addMovieComment,
                     score:this.commentForm.addMovieScore,
                 });
-                this.axios.post('/customer/addComment',comment,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.post('/customer/addComment',comment)
                     .then(res=>{
                         console.log(res)
                         if(res.data.data){
@@ -265,7 +265,7 @@
                         'userid':JSON.parse(localStorage.getItem('loginUser')).userid,
                         'movieid':this.movie.movieid
                     });
-                    this.axios.post('/customer/collectMovie',data,{headers:{'token':localStorage.getItem('token')}})
+                    this.axios.post('/customer/collectMovie',data)
                         .then(res=>{
                             console.log(res)
                             if(res.data.data){
@@ -284,7 +284,7 @@
                         'userid':JSON.parse(localStorage.getItem('loginUser')).userid,
                         'movieid':this.movie.movieid
                     });
-                    this.axios.post('/customer/removeCollect',data,{headers:{'token':localStorage.getItem('token')}})
+                    this.axios.post('/customer/removeCollect',data)
                         .then(res=>{
                             console.log(res);
                             if(res.data.data){
@@ -303,8 +303,7 @@
             },
             getMovieInfo:function () {
                 this.axios.get('/customer/getMovieInfoById?movieid='+this.$route.query.movieid+'&userid='+JSON.parse(localStorage.getItem('loginUser')).userid
-                    +'&current='+this.pageForm.current+'&size='+this.pageForm.size,
-                    {headers:{'token':localStorage.getItem('token')}})
+                    +'&current='+this.pageForm.current+'&size='+this.pageForm.size)
                     .then(res=>{
                         console.log(res);
                         this.movie=res.data.data.movie;
@@ -331,7 +330,7 @@
             },
             addLikeValue:function (id) {
                 let commentid=this.$qs.stringify({commentid:id});
-                this.$axios.post('/customer/addCommentLike',commentid,{headers:{'token':localStorage.getItem('token')}})
+                this.$axios.post('/customer/addCommentLike',commentid)
                     .then(res=>{
                         if(res.data.data){
                             this.getMovieInfo()

@@ -141,7 +141,7 @@
         },
         methods:{
             deleteTopic:function(topicid){
-                this.axios.get('/customer/deleteTopic?topicid='+topicid,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/deleteTopic?topicid='+topicid)
                     .then(res=>{
                         if(res.data.data){
                             this.$router.push('/topic');
@@ -159,7 +159,7 @@
                     topicid:this.topic.topicid,
                     content:this.topicMessage
                 });
-                this.axios.post('/customer/addTopicMessage',topicMessage,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.post('/customer/addTopicMessage',topicMessage)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('发表成功!');
@@ -175,7 +175,7 @@
             },
             deleteTopicMessage:function(topicmessageid){
                 console.log(topicmessageid)
-                this.axios.get('/customer/deleteTopicMessage?topicmessageid='+topicmessageid,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/deleteTopicMessage?topicmessageid='+topicmessageid)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('删除成功!');
@@ -195,7 +195,7 @@
                     topicmessageid:this.replyTopicMessageId,
                     topicid:this.topic.topicid
                 })
-                this.axios.post('/customer/addTopicMessageReply',reply,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.post('/customer/addTopicMessageReply',reply)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('回复成功!');
@@ -216,7 +216,7 @@
                 this.replyModal=true;
             },
             deleteReply:function(date){
-                this.axios.get('/customer/deleteReply?topicmessagereplydate='+date,{headers:{'token':localStorage.getItem('token')}})
+                this.axios.get('/customer/deleteReply?topicmessagereplydate='+date)
                     .then(res=>{
                         if(res.data.data){
                             this.$Message.success('成功删除!');
@@ -237,7 +237,7 @@
             },
             getTopicContent:function () {
                 this.topic=JSON.parse(this.$route.query.topic);
-              this.axios.get('/customer/getTopicContent?topicid='+this.topic.topicid,{headers:{'token':localStorage.getItem('token')}})
+              this.axios.get('/customer/getTopicContent?topicid='+this.topic.topicid)
                     .then(res=>{
                         console.log(res);
                         this.topicMessageList=res.data.data.topicMessageList;

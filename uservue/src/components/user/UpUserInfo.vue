@@ -185,7 +185,7 @@
                 this.$refs[name].validate((valid) => {
                     let user=this.$qs.stringify(this.upUserForm);
                     if (valid) {
-                        this.axios.post('/user/updateUser',user,{headers:{'token':localStorage.getItem('token')}})
+                        this.axios.post('/user/updateUser',user)
                             .then(res=>{
                                 console.log(res)
                                 if(res.data.data.result){
