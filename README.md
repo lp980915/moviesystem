@@ -9,10 +9,18 @@ vue包下为后台管理系统的客户端部分
 #### 预览
 http://www.ljcblog.top:8088  
 http://www.ljcblog.top:8089
+<<<<<<< HEAD
+
+#### 后端技术栈：
+SpringBoot，MyBatisPlus，JWT，MySQL  
+#### 前端技术栈：
+Vue，VUe-Router，Axios，IView，ElementUI，EChart
+=======
 
 #### 后端技术栈：
 SpringBoot，MyBatisPlus，JWT，MySQL  
 #### 前端技术栈：
 Vue，VUe-Router，Axios，IView，ElementUI，EChart
 
+>>>>>>> develop
 

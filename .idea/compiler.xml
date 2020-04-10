@@ -12,8 +12,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="springbootvue.service.main" target="11" />
-      <module name="springbootvue.service.test" target="11" />
+      <module name="movieSystem.service.main" target="11" />
+      <module name="movieSystem.service.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
