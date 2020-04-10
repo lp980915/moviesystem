@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'cn.ljc'
-version = '0.0.1-SNAPSHOT'
+version = 'movieSystem'
 sourceCompatibility = '11'
 
 configurations {
