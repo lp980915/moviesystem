@@ -13,13 +13,6 @@ http://www.ljcblog.top:8089
 
 #### 后端技术栈：
 SpringBoot，MyBatisPlus，JWT，MySQL  
-
-#### 前端技术栈：
-Vue，VUe-Router，Axios，IView，ElementUI，EChart  
-=======
-
-#### 后端技术栈：
-SpringBoot，MyBatisPlus，JWT，MySQL  
 #### 前端技术栈：
 Vue，VUe-Router，Axios，IView，ElementUI，EChart
 
