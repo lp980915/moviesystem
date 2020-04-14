@@ -11,9 +11,5 @@
         <module name="movieSystem.service.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="movieSystem.service.main" target="11" />
-      <module name="movieSystem.service.test" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
