@@ -11,7 +11,9 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import App from './App'
 import router from './router'  //5.导入写好的路由
+import SlideVerify from 'vue-monoplasty-slide-verify';
 
+Vue.use(SlideVerify);
 NProgress.configure({showSpinner:false})
 
 Vue.config.productionTip = false;

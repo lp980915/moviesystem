@@ -68,6 +68,17 @@
             </FormItem>
             </Form>
         </Modal>
+
+        <Modal v-model="verifyModal" :closable="false" footer-hide width="350px">
+            <slide-verify  ref="slideblock"
+                           @again="onAgain"
+                           @success="onSuccess"
+                           @fail="onFail"
+                           :accuracy="accuracy"
+                           :imgs="imgs"
+                           slider-text="滑一滑"
+            ></slide-verify>
+        </Modal>
     </div>
 </template>
 
@@ -158,30 +169,49 @@
                     checkpass:''
                 },
                 findPassModal:false,
+                verifyModal:false,
                 loading:true,
                 addUserDrawer:false,
+                // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
+                accuracy: 7,
+                imgs:["http://q7u9zowxe.bkt.clouddn.com/guimie.jpg",
+                    "http://q7u9zowxe.bkt.clouddn.com/wlopbackground.jpg",
+                    "http://q7u9zowxe.bkt.clouddn.com/timg.jpg",
+                    "http://q7u9zowxe.bkt.clouddn.com/yourname.jpg"]
             }
         },
         methods:{
+            onSuccess(){
+                let user=this.$qs.stringify(this.loginForm);
+                this.axios.post('/customer/login',user)
+                    .then(res=>{
+                        console.log(res)
+                        if(res.data.data.token!=null&&res.data.data.token!==''){
+                            localStorage.setItem('token',res.data.data.token);
+                            localStorage.setItem('loginUser',JSON.stringify(res.data.data.user));
+                            this.axios.defaults.headers.common['token']=res.data.data.token;
+                            this.$router.push('/welcome');
+                            this.$Message.success('登录成功!');
+                        }else {
+                            this.$Message.error(res.data.data);
+                            this.verifyModal=false;
+                            this.$refs.slideblock.reset();
+                        }
+                    }).catch(err=>{
+                    console.log(err)
+                })
+            },
+            onFail(){
+                this.$Message.error("验证失败");
+            },
+            onAgain() {
+                this.$Message.warning("检测到非人为操作");
+                this.$refs.slideblock.reset();
+            },
             login(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        let user=this.$qs.stringify(this.loginForm);
-                        this.axios.post('/customer/login',user)
-                            .then(res=>{
-                               console.log(res)
-                                if(res.data.data.token!=null&&res.data.data.token!==''){
-                                    localStorage.setItem('token',res.data.data.token);
-                                    localStorage.setItem('loginUser',JSON.stringify(res.data.data.user));
-                                    this.axios.defaults.headers.common['token']=res.data.data.token;
-                                    this.$router.push('/welcome');
-                                    this.$Message.success('登录成功!');
-                                }else {
-                                    this.$Message.error(res.data.data)
-                                }
-                            }).catch(err=>{
-                                console.log(err)
-                        })
+                        this.verifyModal=true;
                     } else {
                         this.$Message.error('请填写正确的登录信息!');
                     }

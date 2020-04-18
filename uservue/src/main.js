@@ -6,7 +6,9 @@ import qs from 'qs';
 import './plugins/iview.js'
 import './assets/css/global.css'
 import  {Comment,Avatar,List} from 'ant-design-vue';
+import SlideVerify from 'vue-monoplasty-slide-verify';
 
+Vue.use(SlideVerify);
 
 Vue.config.productionTip = false
 Vue.prototype.$qs = qs;
