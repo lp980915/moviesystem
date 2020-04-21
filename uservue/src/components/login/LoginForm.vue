@@ -181,7 +181,8 @@
             }
         },
         methods:{
-            onSuccess(){
+            verfiySuccess(){
+                this.verifyModal=false;
                 let user=this.$qs.stringify(this.loginForm);
                 this.axios.post('/customer/login',user)
                     .then(res=>{
@@ -200,6 +201,9 @@
                     }).catch(err=>{
                     console.log(err)
                 })
+            },
+            onSuccess(){
+              this.verfiySuccess();
             },
             onFail(){
                 this.$Message.error("验证失败");
