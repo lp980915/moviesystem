@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import springboot.bean.*;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.util.*;
 
 @Service
+@Transactional
 public class MovieServiceImpl implements MovieService {
     @Resource
     private UserDao userDao;
@@ -30,23 +32,25 @@ public class MovieServiceImpl implements MovieService {
     private CommentDao commentDao;
     @Resource
     private CustomerDao customerDao;
+
+    @Transactional(readOnly = true)
     @Override
     public IPage selectPage(Page<Movie> page, MovieSort movieSort) {
         //如果没有条件，就只做简单的查询
         if(StringUtils.isEmpty(movieSort.getMoviename())){
             IPage ipage=movieDao.selectPage(page,new QueryWrapper<MovieSort>());
             for(MovieSort movieSort1:(List<MovieSort>)ipage.getRecords()){
-                movieSort1.setMoviesort(movieDao.getSortByMovieid(movieSort1));
-                movieSort1.setMoviecountry(movieDao.getCountryByMovieid(movieSort1));
-                movieSort1.setActorname(movieDao.getMovieActorByMovieid(movieSort1));
+                movieSort1.setMoviesort(movieDao.getSortByMovieid(movieSort1))
+                .setMoviecountry(movieDao.getCountryByMovieid(movieSort1))
+                .setActorname(movieDao.getMovieActorByMovieid(movieSort1));
             }
             return ipage;
         }else {
             IPage ipage=movieDao.selectPage(page,new QueryWrapper<MovieSort>().like("moviename", movieSort.getMoviename()));
             for(MovieSort movieSort1:(List<MovieSort>)ipage.getRecords()){
-                movieSort1.setMoviesort(movieDao.getSortByMovieid(movieSort1));
-                movieSort1.setMoviecountry(movieDao.getCountryByMovieid(movieSort1));
-                movieSort1.setActorname(movieDao.getMovieActorByMovieid(movieSort1));
+                movieSort1.setMoviesort(movieDao.getSortByMovieid(movieSort1))
+                .setMoviecountry(movieDao.getCountryByMovieid(movieSort1))
+                .setActorname(movieDao.getMovieActorByMovieid(movieSort1));
             }
             return ipage;
         }
@@ -196,12 +200,13 @@ public class MovieServiceImpl implements MovieService {
         return map;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getSortAndMovie(Page page) {
      IPage ipage=sortDao.selectPage(page,new QueryWrapper());
         for(SortAndMovie SAM:(List<SortAndMovie>)ipage.getRecords()){
-            SAM.setMovieNum(movieDao.getMovieNumBySort(SAM));
-            SAM.setMovieList(movieDao.getMovieListBySort(SAM));
+            SAM.setMovieNum(movieDao.getMovieNumBySort(SAM))
+            .setMovieList(movieDao.getMovieListBySort(SAM));
         }
         return ipage;
     }
@@ -225,21 +230,22 @@ public class MovieServiceImpl implements MovieService {
         return result>0;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getCommentList(Page page, Comment comment) {
      if(!StringUtils.isEmpty(comment.getComment())){
         IPage iPage=commentDao.selectPage(page,new QueryWrapper<Comment>().like("comment",comment.getComment()));
          for (Comment comment1:(List<Comment>)iPage.getRecords()){
-             comment1.setUsername(userDao.getUsernameById(comment1.getUserid()));
-             comment1.setMoviename(movieDao.getMovienameById(comment1.getMovieid()));
+             comment1.setUsername(userDao.getUsernameById(comment1.getUserid()))
+             .setMoviename(movieDao.getMovienameById(comment1.getMovieid()));
          }
          return iPage;
      }
      else {
          IPage iPage=commentDao.selectPage(page,new QueryWrapper<Comment>());
          for (Comment comment1:(List<Comment>)iPage.getRecords()){
-             comment1.setUsername(userDao.getUsernameById(comment1.getUserid()));
-             comment1.setMoviename(movieDao.getMovienameById(comment1.getMovieid()));
+             comment1.setUsername(userDao.getUsernameById(comment1.getUserid()))
+             .setMoviename(movieDao.getMovienameById(comment1.getMovieid()));
          }
          return iPage;
      }

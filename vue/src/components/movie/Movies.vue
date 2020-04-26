@@ -156,6 +156,7 @@
               :props="{ multiple: true }"
               v-model="upMovieForm.actorname"
               filterable></el-cascader>
+      <span style="color: red;margin-left: 5%">* 注意，将会覆盖原有演职员</span>
           </el-form-item>
 </el-form>
           </span>

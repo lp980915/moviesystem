@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import springboot.bean.*;
@@ -24,6 +25,7 @@ import java.nio.file.Files;
 import java.util.*;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
     @Resource
     UserService userService;
@@ -60,11 +62,12 @@ public class CustomerServiceImpl implements CustomerService {
         return result>0;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getFriend(String userid) {
         Freind freind=new Freind();
-        freind.setMyFans(customerDao.getFans(userid));
-        freind.setMyLikely(customerDao.getLikely(userid));
+        freind.setMyFans(customerDao.getFans(userid))
+        .setMyLikely(customerDao.getLikely(userid));
         List<String> friendList=new ArrayList<>();
         for (String fans:freind.getMyFans()){
             for (String likely:freind.getMyLikely()){
@@ -111,17 +114,17 @@ public class CustomerServiceImpl implements CustomerService {
         return map;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getMovieInfoById(String movieid, String userid, Page page) {
-        MovieInfo movieInfo=new MovieInfo();
-        movieInfo.setMovie(customerDao.getMovieById(movieid));
-        movieInfo.setMoviecountry(customerDao.getMovieCountryByMovieId(movieid));
-        movieInfo.setCommentList(customerDao.selectPageComment(page,movieid)); //自定义分页查询
-        movieInfo.setMoviesort(customerDao.getMoviesortByMovieId(movieid));
-        movieInfo.setMovieactor(customerDao.getActorListByMovieId(movieid));
-        movieInfo.setExistCollect(customerDao.existCollect(userid,movieid)>0);
-        movieInfo.setTopicList(customerDao.getTopicListByMovieId(movieid));
-        return movieInfo;
+        MovieInfo movieInfo=new MovieInfo(customerDao.getMovieById(movieid),
+                customerDao.selectPageComment(page,movieid),
+                customerDao.getMovieCountryByMovieId(movieid),
+                customerDao.getMoviesortByMovieId(movieid),
+                customerDao.getActorListByMovieId(movieid),
+                customerDao.existCollect(userid,movieid)>0,
+                customerDao.getTopicListByMovieId(movieid));
+                return movieInfo;
     }
 
     @Override
@@ -167,6 +170,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDao.getTopComment();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object search(String moviename, String actorname) {
         Map<String,Object> map=new HashMap<>();
@@ -180,14 +184,16 @@ public class CustomerServiceImpl implements CustomerService {
             return map;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getActorInfo(String actorid) {
         ActorInfo actorInfo=new ActorInfo();
-        actorInfo.setActor(customerDao.getActorById(actorid));
-        actorInfo.setMovieList(customerDao.getMovieListByActorId(actorid));
+        actorInfo.setActor(customerDao.getActorById(actorid))
+        .setMovieList(customerDao.getMovieListByActorId(actorid));
         return actorInfo;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getMovieOrder(String order,Page page) {
         IPage<MovieSort> ipage = null;
@@ -199,12 +205,13 @@ public class CustomerServiceImpl implements CustomerService {
               ipage=customerDao.getTopDateMovie(page);
         }
         for(MovieSort movieSort:ipage.getRecords()){
-            movieSort.setMoviesort(customerDao.getMoviesortByMovieId(movieSort.getMovieid()));
-            movieSort.setMoviecountry(customerDao.getMovieCountryByMovieId(movieSort.getMovieid()));
+            movieSort.setMoviesort(customerDao.getMoviesortByMovieId(movieSort.getMovieid()))
+            .setMoviecountry(customerDao.getMovieCountryByMovieId(movieSort.getMovieid()));
         }
         return ipage;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getAllMovieAndCountryAndSort(String moviesort,String moviecountry) {
         List<String> sortList=movieDao.getSortList();
@@ -217,17 +224,18 @@ public class CustomerServiceImpl implements CustomerService {
         return map;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getUserInfo(String userid) {
         UserInfo userInfo=new UserInfo();
         User user=new User();
         user.setUserid(userid);
-        userInfo.setUser(userDao.getUser(user));
-        userInfo.setCollectMovieList(customerDao.getCollectMovieListById(userid));
-        userInfo.setCommentList(customerDao.getCommentListByUserId(userid));
+        userInfo.setUser(userDao.getUser(user))
+        .setCollectMovieList(customerDao.getCollectMovieListById(userid))
+        .setCommentList(customerDao.getCommentListByUserId(userid));
         FriendInfo friendInfo=new FriendInfo();
-        friendInfo.setMyFans(customerDao.getFansInfo(userid));
-        friendInfo.setMyLikely(customerDao.getLikelyInfo(userid));
+        friendInfo.setMyFans(customerDao.getFansInfo(userid))
+        .setMyLikely(customerDao.getLikelyInfo(userid));
         List<User> friendList=new ArrayList<>();
         for (User fans:friendInfo.getMyFans()){
             for (User likely:friendInfo.getMyLikely()){
@@ -240,9 +248,9 @@ public class CustomerServiceImpl implements CustomerService {
         friendList.clear();
         friendList.addAll(set);    //使用hashset为list去重
         friendInfo.setMyFriend(friendList);
-        userInfo.setFriendInfo(friendInfo);
-        userInfo.setMessageList(customerDao.getMessageListById(userid));
-        userInfo.setTopicList(customerDao.getTopicListByUserId(userid));
+        userInfo.setFriendInfo(friendInfo)
+        .setMessageList(customerDao.getMessageListById(userid))
+        .setTopicList(customerDao.getTopicListByUserId(userid));
         return userInfo;
     }
 
@@ -269,6 +277,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDao.selectPageTopic(page);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Object getTopicContent(String topicid) {
         TopicContent topicContent=new TopicContent();

@@ -3,6 +3,7 @@ package springboot.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import springboot.bean.Actor;
@@ -17,10 +18,12 @@ import java.nio.file.Files;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class ActorServiceImpl implements ActorService {
     @Resource
     private ActorDao actorDao;
 
+    @Transactional(readOnly = true)
     @Override
     public Object getActorList(Page page, Actor actor) {
         if(StringUtils.isEmpty(actor.getActorname())){

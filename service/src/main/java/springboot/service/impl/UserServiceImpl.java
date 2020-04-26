@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import springboot.bean.User;
 import springboot.dao.UserDao;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
@@ -24,7 +26,8 @@ public class UserServiceImpl implements UserService {
         return userDao.getList();
     }
 
-  @Override
+    @Transactional(readOnly = true)
+    @Override
     public IPage<User> selectPage(Page<User> page, User user) {
       //如果没有条件，就只做简单的查询
       if(StringUtils.isEmpty(user.getUsername())){
