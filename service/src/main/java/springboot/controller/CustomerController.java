@@ -37,8 +37,9 @@ public class CustomerController extends ApiController {
     @GetMapping("/getFriend")
     public R getFriend(String userid){return success(customerService.getFriend(userid));}
 
+    /*@CrossOrigin(origins = {"http://www.ljcblog.top:8088", "null"})*/
     @CrossOrigin(origins = {"http://localhost:8082", "null"})
-    @UserLoginToken
+    //@UserLoginToken
     @PostMapping("/uploadUserImg")
     public R uploadUserImg(MultipartFile file, HttpServletRequest req,User user){ return success(customerService.uploadUserImg(file,req,user)); }
 

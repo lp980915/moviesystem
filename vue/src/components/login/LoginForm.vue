@@ -72,10 +72,10 @@
               verifyModal:false,
               // 精确度小，可允许的误差范围小；为1时，则表示滑块要与凹槽完全重叠，才能验证成功。默认值为5
               accuracy: 7,
-              imgs:["http://q7u9zowxe.bkt.clouddn.com/guimie.jpg",
-                "http://q7u9zowxe.bkt.clouddn.com/wlopbackground.jpg",
-                "http://q7u9zowxe.bkt.clouddn.com/timg.jpg",
-                "http://q7u9zowxe.bkt.clouddn.com/yourname.jpg"]
+              imgs:["http://cdn.ljcblog.top/guimie.jpg",
+                "http://cdn.ljcblog.top/wlopbackground.jpg",
+                "http://cdn.ljcblog.top/timg.jpg",
+                "http://cdn.ljcblog.top/yourname.jpg"]
             }
         },
         created:function () {

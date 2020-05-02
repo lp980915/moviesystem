@@ -75,4 +75,6 @@ public interface MovieDao extends BaseMapper {
     int deleteMovieActor(String movieid);
 
     int updateMovieById(MovieSort movieSort);
+
+    String getActorIdByActorName(String actorname);
 }

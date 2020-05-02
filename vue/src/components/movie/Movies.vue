@@ -464,6 +464,7 @@
                     })
             },
             openUpImgDialog:function (movie) {
+              console.log(movie);
                 this.upImgForm=movie;
                 this.upImgDialogVisible=true
             },

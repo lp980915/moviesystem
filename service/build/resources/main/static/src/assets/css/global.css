@@ -1,0 +1,19 @@
+/*全局样式表,同级样式可使用!important进行覆盖*/
+html,
+body,
+#app{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.el-breadcrumb{        /*指定所有面包屑与下面的组件的距离*/
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+.el-steps{
+  margin: 15px 0;
+}
+.el-step__title{
+  font-size: 12px;
+}

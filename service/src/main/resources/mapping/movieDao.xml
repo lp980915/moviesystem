@@ -106,5 +106,9 @@
     <select id="getMovieActorByMovieid" resultType="java.lang.String">
         select a.actorname from movieactor m,actor a where m.actorid=a.actorid and m.movieid=#{movieid}
     </select>
+   <!-- 去重查询-->
+    <select id="getActorIdByActorName" resultType="java.lang.String">
+        select actorid from actor where actorname=#{actorname} limit 0,1
+    </select>
 
 </mapper>

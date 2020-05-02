@@ -118,10 +118,12 @@ public class MovieServiceImpl implements MovieService {
             deleteResult=movieDao.deleteMovieSortById(movieSort.getMovieid());
         }
         if(!StringUtils.isEmpty(selectedactorid)){
-            List<String> actoridList = Arrays.asList(selectedactorid.split(","));
+            List<String> actornameList = Arrays.asList(selectedactorid.split(","));
+            System.out.println(actornameList);
             deleteResult1=movieDao.deleteMovieActor(movieSort.getMovieid());
-            for(String actorid:actoridList){
-                if(!StringUtils.isEmpty(actorid)){
+            for(String actorname:actornameList){
+                if(!StringUtils.isEmpty(actornameList)){
+                    String actorid=movieDao.getActorIdByActorName(actorname);
                     movieDao.addMovieActor(actorid,movieSort.getMovieid());
                 }
             }

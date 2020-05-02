@@ -24,7 +24,7 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
-              <el-tag v-for="item in props.row.movieList" key="index">{{item}}</el-tag>
+              <el-tag v-for="(item,index) in props.row.movieList" :key="index">{{item}}</el-tag>
           </el-form>
         </template>
       </el-table-column>
