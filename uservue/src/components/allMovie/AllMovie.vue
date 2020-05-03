@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Card style="margin: 2%">
+        <Card  :style="'background:'+color+';margin:2%'" >
             <Spin fix v-if="spinShow"></Spin>
         <RadioGroup v-model="border" style="margin-left: 35%" @on-change="radioChange">
             <Radio label="热度优先" border></Radio>
@@ -54,7 +54,8 @@
                     total:0
                 },
                 movieList:[],
-                spinShow:true
+                spinShow:true,
+                color:sessionStorage.getItem('color')
             }
         },
         created:function(){

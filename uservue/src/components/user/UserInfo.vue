@@ -2,7 +2,7 @@
     <div>
         <Row>
             <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 24, offset: 0 }"  :md="{ span: 6, offset: 1 }" :lg="{ span: 6, offset: 1 }">
-                <Card shadow style="width:90%;margin-top:40px">
+                <Card  :style="'background:'+color+';width:90%;margin-top:40px'" >
                     <Spin fix v-if="spinShow"></Spin>
                     <Avatar :src="user.userimg" size="60" style="margin-left: 42%"/>
                     <h2 style="text-align: center;margin-top:10px">{{user.username}}</h2>
@@ -65,7 +65,7 @@
                 </Card>
             </Col>
             <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 24, offset: 0 }"  :md="{ span: 16, offset: 0 }" :lg="{ span: 16,offset: 0  }">
-                <Card shadow style="width:100%;margin-top:40px">
+                <Card :style="'background:'+color+';width:100%;margin-top:40px'" >
                     <Spin fix v-if="spinShow"></Spin>
                     <Tabs :value="tabValue" @on-click="tabChange">
                         <TabPane :label="'评论'+' ('+commentList.length+')'" icon="ios-create" name="1">
@@ -113,7 +113,7 @@
                             <Row>
                                     <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 12, offset: 0 }" :md="{ span: 12, offset: 0 }" :lg="{ span: 5, offset: 1 }"
                                          v-for="(movie,index) in collectMovieList" :key="index"  v-show="index<movieShowNum" style="margin-top: 20px">
-                                        <Card>
+                                        <Card :style="'background:'+color" >
                                         <img @click="toMovieInfo(movie.movieid)" class=" clickClass" :src="movie.movieimg" height="300px" width="100%"  alt="movie.moviename"/>
                                         <Rate class="Rate" disabled show-text v-model="movie.moviescore/2"><span style="color: #f5a623">{{movie.moviescore}}</span></Rate>
                                         <div @click="toMovieInfo(movie.movieid)" class="moviename clickClass">{{movie.moviename}}</div>
@@ -199,7 +199,7 @@
                             <Row>
                             <Col :xs="8" :sm="8" :md="6" :lg="3"
                                     v-for="(user,index) in friendData.myLikely" :key="index">
-                            <Card style="width:100px;text-align: center">
+                            <Card  :style="'background:'+color+';width:100px;text-align: center'" >
                                 <div @click="toUserInfo(user.userid)" >
                                     <Avatar class="clickClass" :src="user.userimg" size="50"></Avatar>
                                 </div>
@@ -212,7 +212,7 @@
                             <Row>
                                 <Col :xs="8" :sm="8" :md="6" :lg="3"
                                      v-for="(user,index) in friendData.myFans" :key="index">
-                                    <Card style="width:100px;text-align: center">
+                                    <Card :style="'background:'+color+';width:100px;text-align: center'">
                                         <div @click="toUserInfo(user.userid)" >
                                             <Avatar class="clickClass" :src="user.userimg" size="50"></Avatar>
                                         </div>
@@ -225,7 +225,7 @@
                             <Row>
                                 <Col :xs="8" :sm="8" :md="6" :lg="3"
                                      v-for="(user,index) in friendData.myFriend" :key="index">
-                                    <Card style="width:100px;text-align: center">
+                                    <Card :style="'background:'+color+';width:100px;text-align: center'">
                                         <div @click="toUserInfo(user.userid)" >
                                             <Avatar class="clickClass" :src="user.userimg" size="50"></Avatar>
                                         </div>
@@ -271,7 +271,8 @@
                 loading:false,
                 loading1:false,
                 loading2:false,
-                loading3:false
+                loading3:false,
+                color:sessionStorage.getItem('color')
             }
         },
         methods:{

@@ -49,6 +49,7 @@
             return{
                 actorList:JSON.parse(sessionStorage.getItem('actorList')),
                 movieList:JSON.parse(sessionStorage.getItem('movieList')),
+                color:sessionStorage.getItem('color')
             }
         },
         methods:{

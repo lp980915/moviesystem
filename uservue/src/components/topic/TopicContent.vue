@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <Card style="margin: 2%" dis-hover>
+    <div >
+        <Card  :style="'background:'+color+';margin:2%'"  dis-hover>
             <Spin fix v-if="spinShow"></Spin>
             <Tooltip content="发表我的看法" theme="light" placement="top" style="margin-left: 80%;margin-top:1%">
                 <Button @click="topicMessageModal=true" type="primary" shape="circle" icon="md-add" size="large"></Button>
@@ -33,7 +33,7 @@
             </Modal>
             <Row>
                 <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 1 }" :md="{ span: 13, offset: 5 }" :lg="{ span: 13, offset: 5 }">
-            <Card style="margin: 2%">
+            <Card  :style="'background:'+color+';margin:2%'" >
                 <p style="font-size:25px;text-align: center">{{topic.title}}</p>
                 <p style="margin-top:20px">{{topic.describe}}</p>
             </Card>
@@ -57,8 +57,8 @@
                         :alt="topicMessage.username"
                 />
                 <p slot="content" v-html="topicMessage.content"></p>
-                <Button v-show="existReply(topicMessage.topicmessageid)" @click="showReply(index)" :id="index" :loading="isloading===index" icon="ios-arrow-down" size="small" shape="circle"></Button>
-                <Button v-show="false" @click="hiddenReply(index)" :id="index+'*'" icon="ios-arrow-up" size="small" shape="circle"></Button>
+                <Button  :style="'background:'+color"  v-show="existReply(topicMessage.topicmessageid)" @click="showReply(index)" :id="index" :loading="isloading===index" icon="ios-arrow-down" size="small" shape="circle"></Button>
+                <Button  :style="'background:'+color"  v-show="false" @click="hiddenReply(index)" :id="index+'*'" icon="ios-arrow-up" size="small" shape="circle"></Button>
                 <a-comment v-for="(topicMessageReply,index1) in topicMessageReplyList" :key="index1"
                            v-show="topicMessageReply.topicmessageid===topicMessage.topicmessageid&&replyIndex.indexOf(index)>-1">
                     <span slot="actions">
@@ -133,7 +133,8 @@
                 replyTopicMessageId:'',
                 isloading:'-1',
                 topicMessage:'',
-                topicMessageModal:false
+                topicMessageModal:false,
+                color:sessionStorage.getItem('color')
             }
         },
         created(){

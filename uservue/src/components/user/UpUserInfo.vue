@@ -1,9 +1,8 @@
 <template>
     <div>
-        <Card style="margin: 4%">
+        <Card  :style="'background:'+color+';margin: 4%'" >
             <Row>
                 <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 20, offset: 0 }"  :md="{ span: 18, offset: 1 }" :lg="{ span: 13, offset: 1 }">
-            <Card dis-hover :bordered="false">
             <h2 style="text-align: center">修改信息</h2>
             <Form ref="upUserForm" :model="upUserForm" :rules="rules" :label-width="80" style="margin-top: 40px">
                 <FormItem label="用户名" prop="username">
@@ -30,7 +29,7 @@
                        title="修改密码">
                     <Form ref="upPassForm" :model="upPassForm" :rules="passRules" :label-width="80" style="margin-top: 20px">
                         <FormItem label="原密码" prop="oldPass">
-                            <Input type="password" v-model="upPassForm.oldPass" placeholder="请输入原密码" password></Input>
+                            <Input  type="password" v-model="upPassForm.oldPass" placeholder="请输入原密码" password></Input>
                         </FormItem>
                         <FormItem label="新密码" prop="password">
                             <Input type="password" v-model="upPassForm.password" placeholder="请输入新密码" password></Input>
@@ -44,7 +43,6 @@
                         <Button  @click="upPassModal=false">取消</Button>
                     </div>
                 </Modal>
-            </Card>
                 </Col>
                 <Col  :xs="24" :sm="16" :md="12" :lg="8">
                     <Avatar :src="user.userimg" size="150" style="margin-left:40%;margin-top: 10%"></Avatar>
@@ -178,6 +176,7 @@
                         { validator: validatePass2, trigger: 'blur' }
                     ],
                 },
+                color:sessionStorage.getItem('color')
             }
         },
         methods:{

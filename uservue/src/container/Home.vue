@@ -2,7 +2,7 @@
     <Layout>
         <Header>
             <Row>
-            <Menu mode="horizontal" theme="light"  @on-select="navPath" :active-name="activeName"  ref="menu">
+            <Menu mode="horizontal" theme="light"  @on-select="navPath" :active-name="activeName" :style="'background:'+color" ref="menu">
                 <Col :xs="24" :sm="24" :md="24" :lg="12">
                 <MenuItem name="1">
                     <Icon type="ios-desktop" />
@@ -20,7 +20,7 @@
                         <Icon type="ios-chatbubbles" />
                         电影话题
                     </MenuItem>
-                <Submenu name="4">
+                <Submenu name="4" >
                     <template slot="title">
                         <Icon type="ios-person" />
                         个人中心
@@ -29,10 +29,13 @@
                         <MenuItem name="4-2">修改个人信息</MenuItem>
                 </Submenu>
                 </Col>
+                <Col :xs="1" :sm="1" :md="1" :lg="1">
+                    <ColorPicker v-model="color" alpha  recommend @on-change="colorChanged" />
+                </Col>
                 <Col :xs="0" :sm="0" :md="0" :lg="8">
                 <span class="homeTitle"><Icon type="ios-film"/>电影交流平台</span>
                 </Col>
-                <Col :xs="24" :sm="18" :md="12" :lg="8">
+                <Col :xs="23" :sm="18" :md="12" :lg="8">
                 <div class="search">
                 <Input search placeholder="站内搜索" v-model="searchValue" @on-search="homeSearch()"/>
                 </div>
@@ -92,12 +95,15 @@
             </Menu>
             </Row>
         </Header>
-        <Content>
+        <Content :style="'background:'+color" >
 
             <router-view/>
             <BackTop></BackTop>
         </Content>
-        <Footer style="padding-left:80%">designed by ljc <span style="font-size: 18px"><Icon type="ios-happy" /></span></Footer>
+        <Footer :style="'background:'+color+';padding-left:60%;height:400px'">
+            <span style="font-size: 27px;font-family: Times New Roman">designed by ljc</span> <span style="font-size: 27px;line-height:400px"><Icon type="ios-arrow-forward" /><Icon type="ios-arrow-forward" /></span>
+            <span @click="goBlog" style="cursor: pointer;font-size: 27px;font-family:STXingkai ">点击进入我的博客</span>
+        </Footer>
     </Layout>
 </template>
 <script>
@@ -117,9 +123,17 @@
                     myFriend:[]
                 },
                 token:{token:localStorage.getItem('token')},
+                color:sessionStorage.getItem('color')
             }
         },
         methods:{
+            goBlog(){
+              window.open("https://www.ljcblog.top")
+            },
+            colorChanged:function(color){
+                sessionStorage.setItem('color',color);
+                window.location.reload();
+            },
             logout:function () {
                 localStorage.clear();
                 sessionStorage.clear();
@@ -248,7 +262,7 @@
         height: 100%;
     }
     .ivu-layout-header{
-        background-color: white;
+        background-color: #f5f7f9;
     }
     .ivu-menu{
         position: fixed;

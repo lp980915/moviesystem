@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Card :bordered="false">
+        <Card :bordered="false"  :style="'background:'+color">
             <Spin fix v-if="spinShow"></Spin>
             <Row>
                 <Col :xs="{span:24,offset:0}" :sm="{span:18,offset:1}" :md="{span:12,offset:1}" :lg="{span:8,offset:2}">
@@ -11,11 +11,11 @@
                     </div>
                 </Col>
             </Row>
-            <Card class="introCard">
+            <Card class="introCard"  :style="'background:'+color">
                 <p slot="title">{{actor.actorname}}的简介:</p>
                 <p>{{actor.actordetails}}</p>
             </Card>
-            <Card class="introCard">
+            <Card class="introCard"  :style="'background:'+color">
                 <p slot="title">{{actor.actorname}}的获奖情况:</p>
                 <p>{{actor.actorreward}}</p>
             </Card>
@@ -45,7 +45,8 @@
             return{
                 actor:{},
                 movieList:[],
-                spinShow:true
+                spinShow:true,
+                color:sessionStorage.getItem('color')
             }
         },
         methods:{

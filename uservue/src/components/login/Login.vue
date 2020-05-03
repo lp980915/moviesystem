@@ -22,7 +22,7 @@
                           <div class="loginTitle"><span><Icon type="ios-film"/>电影交流平台</span></div>
                       </Col>
                       <Col span="16">
-                          <Card :bordered="false">
+                          <Card>
                               <LoginForm></LoginForm>
                           </Card>
                       </Col>

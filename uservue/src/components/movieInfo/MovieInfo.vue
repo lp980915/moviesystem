@@ -1,6 +1,6 @@
 <template>
     <div>
-    <Card :bordered="false">
+    <Card :bordered="false"  :style="'background:'+color">
         <Spin fix v-if="spinShow"></Spin>
         <Row>
             <Col class=titleClass :xs="{span:24,offset:0}" :sm="{span:18,offset:1}" :md="{span:12,offset:1}" :lg="{span:8,offset:2}">
@@ -84,7 +84,7 @@
             </Col>
 
         </Row>
-        <Card class="introCard">
+        <Card  :style="'background:'+color" class="introCard">
             <p slot="title">{{movie.moviename}}的简介:</p>
             <p>{{movie.movieintro}}</p>
         </Card>
@@ -136,7 +136,7 @@
         <Row v-show="topicList.length>0">
             <Col class="titleClass" :xs="0" :sm="0" :md="1" :lg="2" ></Col>
             <Col :xs="24" :sm="16" :md="13" :lg="13">
-                <Card>
+                <Card  :style="'background:'+color">
                     <List item-layout="vertical">
                         <ListItem v-for="(topic,index) in topicList" :key="index">
                             <ListItemMeta slot="header"/>
@@ -205,7 +205,8 @@
                 addTopicModal:false,
                 title:'',
                 describe:'',
-                topicList:[]
+                topicList:[],
+                color:sessionStorage.getItem('color')
             }
         },
         created:function () {

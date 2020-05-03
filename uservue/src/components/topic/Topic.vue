@@ -1,13 +1,13 @@
 <template>
     <div>
-        <Card style="margin: 2%" dis-hover>
+        <Card  :style="'background:'+color+';margin:2%'"  dis-hover>
             <Spin fix v-if="spinShow"></Spin>
             <Row style="margin-top: 30px">
                 <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 1 }" :md="{ span: 13, offset: 5 }" :lg="{ span: 13, offset: 5 }"><span class="smallTitle">电影话题:</span><Divider /></Col>
             </Row>
             <Row>
                 <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 1 }" :md="{ span: 13, offset: 5 }" :lg="{ span: 13, offset: 5 }">
-                <Card>
+                <Card  :style="'background:'+color" >
                     <List item-layout="vertical">
                         <ListItem v-for="(topic,index) in topicList" :key="index">
                             <ListItemMeta slot="header"/>
@@ -59,6 +59,7 @@
                     total:0
                 },
                 topicList:[],
+                color:sessionStorage.getItem('color')
             }
         },
         methods:{

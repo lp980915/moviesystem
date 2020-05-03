@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Card style="margin: 2%" dis-hover>
+        <Card  :style="'background:'+color+';margin:2%'"  dis-hover>
             <Spin fix v-if="spinShow"></Spin>
             <RadioGroup v-model="selectedCountry" @on-change="countryChange" size="small" style="margin-top: 10px;margin-left: 22%;margin-right: 20%">
                 <Radio label="全部地区"  border></Radio>
@@ -11,7 +11,7 @@
                 <Radio :label="sort" border  v-for="(sort,index) in sortList" :key="index" ></Radio>
             </RadioGroup>
             <Row style="margin-left: 20%;margin-right: 20%;margin-top: 40px">
-                <Card>
+                <Card  :style="'background:'+color" >
                 <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 12, offset: 0 }" :md="{ span: 12, offset: 0 }" :lg="{ span: 5, offset: 1 }"
                 v-for="(movie,index) in movieList" :key="index"  v-show="index<showNum" style="margin-top: 20px">
                    <img @click="toMovieInfo(movie.movieid)" class=" clickClass" :src="movie.movieimg" height="230px" width="150px"  alt="movie.moviename"/>
@@ -40,7 +40,8 @@
               movieList:[],
               showNum:12,
               spinShow:true,
-              loading:false
+              loading:false,
+              color:sessionStorage.getItem('color')
           }
         },
         created(){

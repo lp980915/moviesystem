@@ -30,7 +30,7 @@
       <Row><Col class="demo-spin-col" span="8">
       </Col>
           <Col :xs="24" :sm="12" :md="12" :lg="4" v-for="(movie,index) in movieList" :key="index">
-              <Card style="width:230px;height:370px;margin-left:9%">
+              <Card :style="'background:'+color+';width:230px;height:370px;margin-left:9%'" >
                   <Spin fix v-if="spinShow"></Spin>
                   <div style="text-align:center">
                       <img @click="movieInfo(movie.movieid)" :src="movie.movieimg" width="100%" height="260px" class="point">
@@ -51,7 +51,7 @@
           <Col :xs="0" :sm="0" :md="1" :lg="2">
           </Col>
           <Col :xs="24" :sm="16" :md="18" :lg="18">
-              <Card style="margin-left: 17%">
+              <Card :style="'background:'+color+';margin-left: 17%'" >
                   <Spin fix v-if="spinShow"></Spin>
                   <List item-layout="vertical">
                       <ListItem v-for="(comment,index) in topCommentList" :key="index">
@@ -141,7 +141,8 @@
               gangqinImg:require("../../assets/img/videoImg/gangqin.jpg"),
               jiaofuImg:require("../../assets/img/videoImg/jiaofu.jpg"),
               mingziImg:require("../../assets/img/videoImg/mingzi.jpg"),
-              spinShow:true
+              spinShow:true,
+              color:sessionStorage.getItem('color')
           }
         },
         methods:{
@@ -210,7 +211,7 @@
             sessionStorage.setItem('movieOrder','热度优先');
             sessionStorage.setItem('movieCountry','全部地区');
             sessionStorage.setItem('movieSort','全部类型');
-        }
+        },
     }
 </script>
 

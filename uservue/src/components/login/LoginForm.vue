@@ -190,6 +190,7 @@
                         if(res.data.data.token!=null&&res.data.data.token!==''){
                             localStorage.setItem('token',res.data.data.token);
                             localStorage.setItem('loginUser',JSON.stringify(res.data.data.user));
+                            sessionStorage.setItem('color','white');
                             this.axios.defaults.headers.common['token']=res.data.data.token;
                             this.$router.push('/welcome');
                             this.$Message.success('登录成功!');

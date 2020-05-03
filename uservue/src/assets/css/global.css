@@ -1,6 +1,5 @@
 /*全局样式表,同级样式可使用!important进行覆盖*/
-html,
-body,
+
 #app{
   height: 100%;
   margin: 0;
@@ -16,5 +15,5 @@ div.ivu-list-item-meta-title:hover{
   color: #3399ff;
 }
 .ivu-layout-content{
-  background-color: #f5f7f9;
+  background-color: white;
 }
