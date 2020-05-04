@@ -47,7 +47,8 @@
                 <Col  :xs="24" :sm="16" :md="12" :lg="8">
                     <Avatar :src="user.userimg" size="150" style="margin-left:40%;margin-top: 10%"></Avatar>
                     <div>
-                        <Upload action="http://localhost:8088/api/customer/uploadUserImg"
+                        <!-- action="http://60.205.222.92:8088/api/customer/uploadUserImg"-->
+                        <Upload action="http://localhost:8082/api/customer/uploadUserImg"
                                 :headers="token" :data="user"
                                 :on-success="handleSuccess"
                                 :format="['jpg','jpeg','png']"

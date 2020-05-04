@@ -72,7 +72,7 @@
                             </div>
                             <div >
                                 <!--action="http://60.205.222.92:8088/api/customer/uploadUserImg"-->
-                                <Upload action="http://localhost:8088/api/customer/uploadUserImg"
+                                <Upload action="http://localhost:8082/api/customer/uploadUserImg"
                                       :headers="token" :data="user"
                                         :on-success="handleSuccess"
                                         :format="['jpg','jpeg','png']"
