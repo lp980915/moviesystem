@@ -8,7 +8,10 @@ vue包下为后台管理系统的客户端部分
 
 #### 预览
 http://www.ljcblog.top:8088  
-http://www.ljcblog.top:8089
+http://www.ljcblog.top:8089  
+后台用户名:admin  
+后台密码:666666  
+请不要随意删除数据  
 <<<<<<< HEAD
 
 #### 后端技术栈：
