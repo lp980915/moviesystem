@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Card style="margin: 2%">
+        <Card style="margin: 2%"  :style="'background:'+color">
     <Row class="smallTitleLayout">
         <Col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 1 }" :md="{ span: 13, offset: 2 }" :lg="{ span: 13, offset: 2 }"><span class="smallTitle">搜索结果:</span><Divider /></Col>
     </Row>

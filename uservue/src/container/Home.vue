@@ -100,9 +100,12 @@
             <router-view/>
             <BackTop></BackTop>
         </Content>
-        <Footer :style="'background:'+color+';padding-left:60%;height:400px'">
-            <span style="font-size: 27px;font-family: Times New Roman">designed by ljc</span> <span style="font-size: 27px;line-height:400px"><Icon type="ios-arrow-forward" /><Icon type="ios-arrow-forward" /></span>
-            <span @click="goBlog" style="cursor: pointer;font-size: 27px;font-family:STXingkai ">点击进入我的博客</span>
+        <Footer :style="'background:'+color+';padding-left:70%;height:700px'">
+            <div style="font-size: 27px;font-family: Times New Roman;font-size: 27px;line-height:100px;margin-top: 150px">Designed by LJC</div>
+            <div @click="goBlog" style="cursor: pointer;font-size: 27px;font-family:STXingkai;line-height:100px">
+                <Icon type="ios-link-outline" />我的博客</div>
+            <div @click="goGithub" style="cursor: pointer;font-size: 27px;font-family: Times New Roman;line-height:100px"><Icon type="ios-link-outline" />  Github</div>
+            <div @click="goGitee" style="cursor: pointer;font-size: 27px;font-family:STXingkai;line-height:100px"><Icon type="ios-link-outline" />  码云</div>
         </Footer>
     </Layout>
 </template>
@@ -127,6 +130,12 @@
             }
         },
         methods:{
+            goGithub(){
+                window.open("https://github.com/lp980915")
+            },
+            goGitee(){
+                window.open("https://gitee.com/lp980915")
+            },
             goBlog(){
               window.open("https://www.ljcblog.top")
             },
