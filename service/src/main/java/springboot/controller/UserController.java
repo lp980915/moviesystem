@@ -27,9 +27,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user")
 public class UserController extends ApiController {
-    @Resource
+    @Autowired
     private UserService userService;
-    @Resource
+    @Autowired
     private TokenService tokenService;
 
 

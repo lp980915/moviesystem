@@ -3,6 +3,7 @@ package springboot.controller;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springboot.bean.*;
@@ -17,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController extends ApiController {
-    @Resource
+    @Autowired
     private CustomerService customerService;
-    @Resource
+    @Autowired
     private UserService userService;
 
     @PostMapping("/login")

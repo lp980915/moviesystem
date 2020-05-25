@@ -1,5 +1,6 @@
 package springboot.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springboot.bean.Movie;
@@ -13,7 +14,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class ReportServiceImpl implements ReportService {
-    @Resource
+    @Autowired
     private MovieDao movieDao;
     @Override
     public Object getReport() {

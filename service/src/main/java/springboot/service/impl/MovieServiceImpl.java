@@ -22,15 +22,15 @@ import java.util.*;
 @Service
 @Transactional
 public class MovieServiceImpl implements MovieService {
-    @Resource
+    @Autowired
     private UserDao userDao;
-    @Resource
+    @Autowired
     private MovieDao movieDao;
-    @Resource
+    @Autowired
     private SortDao sortDao;
-    @Resource
+    @Autowired
     private CommentDao commentDao;
-    @Resource
+    @Autowired
     private CustomerDao customerDao;
 
     @Transactional(readOnly = true)

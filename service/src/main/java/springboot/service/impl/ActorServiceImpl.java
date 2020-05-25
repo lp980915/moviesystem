@@ -2,6 +2,7 @@ package springboot.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Service
 @Transactional
 public class ActorServiceImpl implements ActorService {
-    @Resource
+    @Autowired
     private ActorDao actorDao;
 
     @Transactional(readOnly = true)

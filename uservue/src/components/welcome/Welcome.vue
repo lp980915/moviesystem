@@ -51,7 +51,7 @@
           <Col :xs="0" :sm="0" :md="1" :lg="2">
           </Col>
           <Col :xs="24" :sm="16" :md="18" :lg="18">
-              <Card :style="'background:'+color+';margin-left: 17%'" >
+              <Card :style="'backgroundu:'+color+';margin-left: 17%'" >
                   <Spin fix v-if="spinShow"></Spin>
                   <List item-layout="vertical">
                       <ListItem v-for="(comment,index) in topCommentList" :key="index">

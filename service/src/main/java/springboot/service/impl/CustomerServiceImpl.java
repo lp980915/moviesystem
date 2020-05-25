@@ -3,6 +3,7 @@ package springboot.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -27,16 +28,16 @@ import java.util.*;
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
-    @Resource
-    UserService userService;
-    @Resource
-    TokenService tokenService;
-    @Resource
-    CustomerDao customerDao;
-    @Resource
-    UserDao userDao;
-    @Resource
-    MovieDao movieDao;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private CustomerDao customerDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private MovieDao movieDao;
 
     @Override
     public Object login(User user, HttpServletResponse response) {

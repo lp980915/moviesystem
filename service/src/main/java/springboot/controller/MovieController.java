@@ -23,8 +23,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/movie")
 public class MovieController extends ApiController{
-@Resource
-private MovieService movieService;
+    @Autowired
+    private MovieService movieService;
 
     @UserLoginToken
     @GetMapping("/getMovieList")

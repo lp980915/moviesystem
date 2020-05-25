@@ -2,6 +2,7 @@ package springboot.controller;
 
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/api/report")
 public class ReportController extends ApiController {
-    @Resource
+    @Autowired
     private ReportService reportService;
 
     @UserLoginToken

@@ -3,6 +3,7 @@ package springboot.controller;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/actor")
 public class ActorController extends ApiController {
-    @Resource
+    @Autowired
     private ActorService actorService;
 
     @UserLoginToken
